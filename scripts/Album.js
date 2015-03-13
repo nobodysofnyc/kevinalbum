@@ -502,6 +502,6 @@ var Albums = {
   ],
 
   random: function() {
-    return Albums.albums[Math.floor(Math.random() * (Albums.albums.length + 1))];
+    return Albums.albums[Math.floor(Math.random() * Albums.albums.length)];
   }
 };
