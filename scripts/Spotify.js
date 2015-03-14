@@ -7,7 +7,7 @@ var Spotify = {
       url: url,
       type: 'get',
       success: function(response) {
-        callback(response.albums);
+        callback(response.albums.items[0]);
       },
       error: function(error) {
         console.log(error);
@@ -15,20 +15,17 @@ var Spotify = {
     });
   },
 
-  getSongs: function(albums, callback) {
-    if (albums.items && albums.items[0]) {
-      var album = albums.items[0];
-      var url = "https://api.spotify.com/v1/albums/" + album.id + "/tracks"
-      $.ajax({
-        url: url,
-        type: 'get',
-        success: function(response) {
-          callback(response.items);
-        },
-        error: function(error) {
-          console.log(error);
-        }
-      });
-    }
+  getSongs: function(album, callback) {
+    var url = "https://api.spotify.com/v1/albums/" + album.id + "/tracks"
+    $.ajax({
+      url: url,
+      type: 'get',
+      success: function(response) {
+        callback(response.items);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
   }
 };

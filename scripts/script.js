@@ -1,17 +1,24 @@
 var game = new KevinAlbum();
+var turnQueue = [];
 
 function reset() {
-  UI.reset();
   if (game.turn) {
     game.turn.pauseAudioPreview();
   }
-  game.turn = new Turn();
+  UI.cleanup();
+  var turn;
+  if (turnQueue.length) {
+    turn = turnQueue[0];
+  } else {
+    game.turn = new Turn(function() {
+      UI.reset();
+    });
+  }
 }
 
 function reveal() {
-  game.turn.state = PlayingState.REVEAL;
-  game.turn.playAudioPreview();
   UI.reveal();
+  game.turn.playAudioPreview();
 }
 
 // clicks and things
@@ -22,8 +29,9 @@ $(document).ready(function() {
   // guess submission
   $('#guess-form').bind('submit', function(e) {
     e.preventDefault();
-    var val = $('#guess').val();
+
     if (game.turn.state == PlayingState.GUESSING) {
+      var val = $('#guess').val();
       game.turn.guess(val, function(pts) {
         if (pts !== null) {
           game.points += pts;

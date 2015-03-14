@@ -16,9 +16,10 @@ var LastFM = {
         } else {
           var image = new Image();
           var load = function() {
-            $('#cover').css('background-image', 'url(' + src + ')').css('opacity', '1');
+            $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + src + ')').css('opacity', '1');
           }
           image.onload = function() { load(); }
+          // in case the load hangs. max out at 2 seconds
           setTimeout(function() { load(); }, 2000);
 
           image.src = src;

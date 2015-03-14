@@ -3,14 +3,14 @@ var PlayingState = {
   REVEAL: 1
 };
 
-function Turn() {
+function Turn(onCreate) {
   this.record = {};
   this.guess;
   this.points;
   this.song;
   this.state = PlayingState.GUESSING;
 
-  this.getAlbum();
+  this.getAlbum(onCreate);
 }
 
 Turn.prototype = {
@@ -48,24 +48,32 @@ Turn.prototype = {
     } else {
       return new FuzzySet([
         this.record.artist,
-        this.record.title,
-        [this.record.artist, this.record.title].join(" ")
+        this.record.name,
+        [this.record.artist, this.record.name].join(" ")
       ]);
     }
   },
 
-  getAlbum: function() {
+  getAlbum: function(onCreate) {
     var self = this;
     LastFM.getAlbum(function(album) {
-      self.record.artist = album.artist;
-      self.record.title = album.name;
+      console.log("got album from last.fm");
+      self.record = album;
       Spotify.getAlbum(album, function(spotifyAlbum) {
-        Spotify.getSongs(spotifyAlbum, function(songs) {
-          audio = new Audio();
-          audio.setAttribute("loop", "loop");
-          audio.src = songs[0].preview_url;
-          self.song = audio;
-        });
+        if (spotifyAlbum) {
+          console.log('got album from spotify');
+          Spotify.getSongs(spotifyAlbum, function(songs) {
+            console.log('got songs from spotify');
+            audio = new Audio();
+            audio.setAttribute("loop", "loop");
+            audio.src = songs[0].preview_url;
+            self.song = audio;
+            onCreate();
+          });
+        } else {
+          console.log('not on spotify');
+          onCreate();
+        }
       });
     });
   },
