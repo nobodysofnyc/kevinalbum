@@ -1,19 +1,24 @@
 var game = new KevinAlbum();
-var turnQueue = [];
 
 function reset() {
   if (game.turn) {
     game.turn.pauseAudioPreview();
   }
   UI.cleanup();
-  var turn;
-  if (turnQueue.length) {
-    turn = turnQueue[0];
-  } else {
-    game.turn = new Turn(function() {
-      UI.reset();
-    });
-  }
+  game.newTurn(function(album) {
+    var i = album.image[album.image.length - 1];
+    var src = i[Object.keys(i)[0]];
+    var image = new Image();
+    var load = function() {
+      $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + src + ')').css('opacity', '1');
+    }
+    image.onload = function() { load(); }
+    setTimeout(function() { load(); }, 2000);
+
+    image.src = src;
+  }, function() {
+    UI.reset();
+  });
 }
 
 function reveal() {

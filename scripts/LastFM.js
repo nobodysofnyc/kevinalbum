@@ -14,15 +14,6 @@ var LastFM = {
         if (src == "") {
           LastFM.getAlbum(callback);
         } else {
-          var image = new Image();
-          var load = function() {
-            $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + src + ')').css('opacity', '1');
-          }
-          image.onload = function() { load(); }
-          // in case the load hangs. max out at 2 seconds
-          setTimeout(function() { load(); }, 2000);
-
-          image.src = src;
           callback(response.album);
         }
       },

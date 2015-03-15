@@ -3,14 +3,14 @@ var PlayingState = {
   REVEAL: 1
 };
 
-function Turn(onCreate) {
+function Turn(onAlbumReceived, completion) {
   this.record = {};
   this.guess;
   this.points;
   this.song;
   this.state = PlayingState.GUESSING;
 
-  this.getAlbum(onCreate);
+  this.getAlbum(onAlbumReceived, completion);
 }
 
 Turn.prototype = {
@@ -54,10 +54,11 @@ Turn.prototype = {
     }
   },
 
-  getAlbum: function(onCreate) {
+  getAlbum: function(onAlbumReceived, completion) {
     var self = this;
     LastFM.getAlbum(function(album) {
       console.log("got album from last.fm");
+      onAlbumReceived(album);
       self.record = album;
       Spotify.getAlbum(album, function(spotifyAlbum) {
         if (spotifyAlbum) {
@@ -68,11 +69,11 @@ Turn.prototype = {
             audio.setAttribute("loop", "loop");
             audio.src = songs[0].preview_url;
             self.song = audio;
-            onCreate();
+            completion()
           });
         } else {
           console.log('not on spotify');
-          onCreate();
+          completion()
         }
       });
     });
