@@ -34,7 +34,7 @@ var UI = {
     });
   },
 
-  reset: function() {
+  reset: function(completion) {
     var width = window.outerWidth / 2;
     var height = window.innerHeight / 2.0;
     var doIt = function() {
@@ -43,24 +43,22 @@ var UI = {
       var $sleeve = $('<div class="sleeve"><img src="images/albumsleeve_sm.png" /></div>');
       $container.append($cover).append($sleeve);
       $container.css({
-        'position' : 'absolute',
         'top' : height - 250,
-        'left' : window.outerWidth
+        'left' : window.outerWidth,
       });
 
       $('#content').append($container);
 
       setTimeout(function() {
         $('.container.active').css({
-          '-webkit-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px)',
-          '-moz-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px)',
-          '-o-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px)',
-          'transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px)',
+          '-webkit-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px) scale(1.0)',
+          '-moz-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px) scale(1.0)',
+          '-o-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px) scale(1.0)',
+          'transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px) scale(1.0)',
         });
+        completion();
       }, 100);
-
     }
-
 
     UI.preloadImage('images/albumsleeve_sm.png', function() {
       doIt();

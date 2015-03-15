@@ -58,7 +58,12 @@ Turn.prototype = {
     var self = this;
     LastFM.getAlbum(function(album) {
       console.log("got album from last.fm");
-      onAlbumReceived(album);
+      var i = album.image[album.image.length - 1];
+      var src = i[Object.keys(i)[0]];
+      if (onAlbumReceived) {
+        onAlbumReceived(src);
+      }
+      album.art = src;
       self.record = album;
       Spotify.getAlbum(album, function(spotifyAlbum) {
         if (spotifyAlbum) {
@@ -69,11 +74,15 @@ Turn.prototype = {
             audio.setAttribute("loop", "loop");
             audio.src = songs[0].preview_url;
             self.song = audio;
-            completion()
+            if (completion) {
+              completion();
+            }
           });
         } else {
           console.log('not on spotify');
-          completion()
+          if (completion) {
+            completion();
+          }
         }
       });
     });

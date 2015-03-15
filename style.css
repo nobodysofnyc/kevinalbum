@@ -50,12 +50,16 @@ html, body, .table, .cell {
 .container {
   width: 500px;
   height: 500px;
-  position: relative;
   display: inline-block;
   -webkit-transition-duration: 0.6s;
   -moz-transition-duration: 0.6s;
   -o-transition-duration: 0.6s;
   transition-duration: 0.6s;
+  position: absolute;
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8);
 }
 
 #points {

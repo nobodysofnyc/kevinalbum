@@ -5,19 +5,10 @@ function reset() {
     game.turn.pauseAudioPreview();
   }
   UI.cleanup();
-  game.newTurn(function(album) {
-    var i = album.image[album.image.length - 1];
-    var src = i[Object.keys(i)[0]];
-    var image = new Image();
-    var load = function() {
-      $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + src + ')').css('opacity', '1');
-    }
-    image.onload = function() { load(); }
-    setTimeout(function() { load(); }, 2000);
-
-    image.src = src;
-  }, function() {
-    UI.reset();
+  game.newTurn(function() {
+    UI.reset(function () {
+      $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + game.turn.record.art + ')').css('opacity', '1');
+    });
   });
 }
 
