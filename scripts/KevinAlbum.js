@@ -9,6 +9,7 @@ function KevinAlbum() {
   this.points = 0;
   this.turnQueue = [];
   this.turn;
+  this.QUEUE_MAX_CAPACITY = 3;
 }
 
 KevinAlbum.prototype = {
@@ -27,10 +28,12 @@ KevinAlbum.prototype = {
   },
 
   _maintainTurnQueue: function() {
-    var turn = new Turn(function(art) {
-      UI.preloadImage(art);
-    });
-    this.turnQueue.push(turn);
+    for (var i = 0; i < this.QUEUE_MAX_CAPACITY - this.turnQueue.length; i++) {
+      var turn = new Turn(function(art) {
+        UI.preloadImage(art);
+      });
+      this.turnQueue.push(turn);
+    }
   },
 
   addPoints: function(points) {
