@@ -25,7 +25,7 @@ Turn.prototype = {
       if (results[0][0] > THRESHOLD) {
         var match = results[0][1];
         var pts = 0;
-        if (match === [this.record.artist, this.record.title].join(" ")) {
+        if (match === [this.record.name, this.record.title].join(" ")) {
           pts = Points.ALL;
         } else if (match === this.record.title) {
           pts = Points.BIG;
@@ -42,7 +42,6 @@ Turn.prototype = {
   },
 
   fuzz: function() {
-    console.log(this.record);
     if (Object.keys(this.record).length == 0 ) {
       return null;
     } else {
