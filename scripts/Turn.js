@@ -21,23 +21,18 @@ Turn.prototype = {
     }
     var results = fuzz.get(guess);
     if (results && results.length && results[0].length) {
-      console.log(results[0][0]);
       if (results[0][0] > THRESHOLD) {
         var match = results[0][1];
-        var pts = 0;
-        if (match === [this.record.name, this.record.title].join(" ")) {
-          pts = Points.ALL;
-        } else if (match === this.record.title) {
-          pts = Points.BIG;
-        } else if (match === this.record.artist) {
-          pts = Points.SMALL;
+        if (match) {
+          completion(Points.BIG);
         } else {
-          console.log('WRONG');
           completion(null);
-          return;
         }
-        completion(pts);
+      } else {
+        completion(null);
       }
+    } else {
+      completion(null);
     }
   },
 
@@ -46,9 +41,7 @@ Turn.prototype = {
       return null;
     } else {
       return new FuzzySet([
-        this.record.artist,
-        this.record.name,
-        [this.record.artist, this.record.name].join(" ")
+        this.record.name
       ]);
     }
   },
