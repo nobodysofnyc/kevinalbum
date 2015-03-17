@@ -34,17 +34,17 @@ Turn.prototype = {
           completion(null);
         }
       } else {
-        var match = this.record.name.match(guess);
+        var match = this.record.name.toLowerCase().match(guess);
         if (match && match.length > 0) {
-          completion(Points.BIG);
+          completion(Points.SMALL);
         } else {
           completion(null);
         }
       }
     } else {
-      var match = this.record.name.match(guess);
+      var match = this.record.name.toLowerCase().match(guess);
       if (match && match.length > 0) {
-        completion(Points.BIG);
+        completion(Points.SMALL);
       } else {
         completion(null);
       }

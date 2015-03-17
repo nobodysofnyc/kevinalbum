@@ -38,14 +38,15 @@ $(document).ready(function() {
         }
       });
       reveal();
+      $(window).bind('keypress.next', function(e) {
+        if (e.keyCode === 13 && game.turn.state == PlayingState.REVEAL) {
+          $(window).unbind('keypress.next');
+          reset();
+        }
+      });
     }
   });
 
-  $(window).bind('keypress', function(e) {
-    if (e.keyCode === 13 && game.turn.state == PlayingState.REVEAL) {
-      reset();
-    }
-  });
 
   // connect spotify
   $('#connect-spotify').bind('click', function() {

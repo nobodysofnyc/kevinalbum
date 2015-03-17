@@ -88,14 +88,21 @@ var UI = {
   },
 
   animateNewPoints: function(pts, completion) {
+    $('#points').html(game.points + ' pts');
+
+    var $form = $('#guess-form');
+    $form.addClass('bloop');
+    setTimeout(function() {
+      $form.removeClass('bloop');
+    }, 1000);
+
     var top = $('#points').offset().top;
     var $p = $('<p class="new-points"></p>');
     $p.html('+' + pts);
     $('body').append($p);
     var width = $p.width();
     var height = $p.height();
-    $p.css({ 'margin-left' : -(width / 2), 'margin-top' : -(height / 2)});
-    $p.css('opacity', '0');
+    $p.css({ 'margin-left' : -(width / 2), 'bottom' : '11%' });
     var done = false;
     $p.bind('webkitTransitionEnd transitionend oTransitionEnd', function(e) {
       if (e.currentTarget === $p[0] && !done) {
@@ -104,17 +111,15 @@ var UI = {
       }
     });
     setTimeout(function() {
-      $p.css('opacity', '1');
       $p.css({
-        'opacity': '0',
         '-webkit-transition-duration': '1.0s',
         '-moz-transition-duration': '1.0s',
         '-o-transition-duration': '1.0s',
         '-transition-duration': '1.0s',
-        'transform' : 'translate3d(0px, -'+ ($p.offset().top - top) +'px, 0px) scale(1.0)'
+        'transform' : 'translate3d(0px, -40px, 0px) scale(1.0)',
+        'opacity': '0'
       });
     }, 10);
-    $('#points').html(game.points + " pts");
   },
 
   preloadImage: function(image, callback) {

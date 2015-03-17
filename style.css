@@ -36,6 +36,10 @@ p {
   left: 0;
 }
 
+.bloop {
+  -webkit-animation: bloop 0.8s;
+}
+
 a.share {
   background-image: url(images/share.png);
   background-size: 20px 26px;
@@ -185,13 +189,25 @@ p.album-artist {
 
 .new-points {
   position: absolute;
-  top: 50%;
   left: 50%;
   color: green;
-  font-size: 60px;
-  -webkit-transform: scale(0.5);
-  -moz-transform: scale(0.5);
-  -o-transform: scale(0.5);
-  transform: scale(0.5);
+  margin: 0px;
+  font-size: 40px;
+  -webkit-transform: scale(0.2);
+  -moz-transform: scale(0.2);
+  -o-transform: scale(0.2);
+  transform: scale(0.2);
   z-index: 10;
+}
+
+@-webkit-keyframes bloop {
+  0% { transform: scale(1.0); color: #fff; }
+  50% { transform: scale(1.5); color: green; }
+  100% { transform: scale(1.0); color: #fff; }
+}
+
+@keyframes bloop {
+  0% { transform: scale(1.0) color: #fff; }
+  50% { transform: scale(1.5) color: green; }
+  100% { transform: scale(1.0) color: #fff; }
 }
