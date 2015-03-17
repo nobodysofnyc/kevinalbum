@@ -90,26 +90,26 @@ var UI = {
   animateNewPoints: function(pts, completion) {
     $('#points').html(game.points + ' pts');
 
-    var $form = $('#guess-form');
+    var $form = $('#points');
     $form.addClass('bloop');
     setTimeout(function() {
       $form.removeClass('bloop');
-    }, 1000);
+    }, 800);
 
-    var top = $('#points').offset().top;
-    var $p = $('<p class="new-points"></p>');
-    $p.html('+' + pts);
-    $('body').append($p);
-    var width = $p.width();
-    var height = $p.height();
-    $p.css({ 'margin-left' : -(width / 2), 'bottom' : '11%' });
-    var done = false;
-    $p.bind('webkitTransitionEnd transitionend oTransitionEnd', function(e) {
-      if (e.currentTarget === $p[0] && !done) {
-        done = true;
-        $p.remove();
-      }
-    });
+    // var top = $('#points').offset().top;
+    // var $p = $('<p class="new-points"></p>');
+    // $p.html('+' + pts);
+    // $('body').append($p);
+    // var width = $p.width();
+    // var height = $p.height();
+    // $p.css({ 'margin-left' : -(width / 2), 'bottom' : '11%' });
+    // var done = false;
+    // $p.bind('webkitTransitionEnd transitionend oTransitionEnd', function(e) {
+    //   if (e.currentTarget === $p[0] && !done) {
+    //     done = true;
+    //     $p.remove();
+    //   }
+    // });
     setTimeout(function() {
       $p.css({
         '-webkit-transition-duration': '1.0s',
