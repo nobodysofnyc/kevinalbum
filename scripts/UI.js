@@ -87,6 +87,36 @@ var UI = {
     $('#guess').val('').focus();
   },
 
+  animateNewPoints: function(pts, completion) {
+    var top = $('#points').offset().top;
+    var $p = $('<p class="new-points"></p>');
+    $p.html('+' + pts);
+    $('body').append($p);
+    var width = $p.width();
+    var height = $p.height();
+    $p.css({ 'margin-left' : -(width / 2), 'margin-top' : -(height / 2)});
+    $p.css('opacity', '0');
+    var done = false;
+    $p.bind('webkitTransitionEnd transitionend oTransitionEnd', function(e) {
+      if (e.currentTarget === $p[0] && !done) {
+        done = true;
+        $p.remove();
+      }
+    });
+    setTimeout(function() {
+      $p.css('opacity', '1');
+      $p.css({
+        'opacity': '0',
+        '-webkit-transition-duration': '1.0s',
+        '-moz-transition-duration': '1.0s',
+        '-o-transition-duration': '1.0s',
+        '-transition-duration': '1.0s',
+        'transform' : 'translate3d(0px, -'+ ($p.offset().top - top) +'px, 0px) scale(1.0)'
+      });
+    }, 10);
+    $('#points').html(game.points + " pts");
+  },
+
   preloadImage: function(image, callback) {
     var i = new Image();
     i.onload = callback;

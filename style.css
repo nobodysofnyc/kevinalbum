@@ -175,10 +175,23 @@ p.album-artist {
   color: #f2f2f2;
 }
 
-@media 
-(-webkit-min-device-pixel-ratio: 2), 
+@media
+(-webkit-min-device-pixel-ratio: 2),
 (min-resolution: 192dpi) {
   a.share {
     background-image: url(images/share@2x.png);
   }
+}
+
+.new-points {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: green;
+  font-size: 60px;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -o-transform: scale(0.5);
+  transform: scale(0.5);
+  z-index: 10;
 }

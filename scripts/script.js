@@ -1,4 +1,4 @@
-var game = new KevinAlbum();
+var game = new Game();
 
 function reset() {
   if (game.turn) {
@@ -32,11 +32,17 @@ $(document).ready(function() {
       game.turn.guess(val, function(pts) {
         if (pts !== null) {
           game.points += pts;
-          $('#points').html(game.points + " pts");
+          UI.animateNewPoints(pts);
+        } else {
+          console.log('you lost points maybe we havent set rules for that yet');
         }
       });
       reveal();
-    } else {
+    }
+  });
+
+  $(window).bind('keypress', function(e) {
+    if (e.keyCode === 13 && game.turn.state == PlayingState.REVEAL) {
       reset();
     }
   });

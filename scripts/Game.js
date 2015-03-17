@@ -5,14 +5,14 @@ var Points = {
   SMALL: 3
 }
 
-function KevinAlbum() {
+function Game() {
   this.points = 0;
   this.turnQueue = [];
   this.turn;
   this.QUEUE_MAX_CAPACITY = 3;
 }
 
-KevinAlbum.prototype = {
+Game.prototype = {
   newTurn: function(callback) {
     if (this.turnQueue[0] !== undefined) {
       this.turn = this.turnQueue[0];

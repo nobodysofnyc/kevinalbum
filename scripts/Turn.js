@@ -15,6 +15,10 @@ function Turn(onAlbumReceived, completion) {
 
 Turn.prototype = {
   guess: function(guess, completion) {
+    if (guess === "") {
+      completion(null);
+      return;
+    }
     var fuzz = this.fuzz();
     if (fuzz === null) {
       console.log('fuzzy match not loaded');
