@@ -202,12 +202,12 @@ p.album-artist {
 
 @-webkit-keyframes bloop {
   0% { -webkit-transform: scale(1.0); color: #fff; }
-  50% { -webkit-transform: scale(2.0); color: green; }
+  50% { -webkit-transform: scale(2.0); color: rgb(13, 245, 157); }
   100% { -webkit-transform: scale(1.0); color: #fff; }
 }
 
 @keyframes bloop {
   0% { transform: scale(1.0) color: #fff; }
-  50% { transform: scale(2.0) color: green; }
+  50% { transform: scale(2.0) color: rgb(13, 245, 157); }
   100% { transform: scale(1.0) color: #fff; }
 }
