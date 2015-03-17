@@ -87,49 +87,25 @@ var UI = {
     $('#guess').val('').focus();
   },
 
-  animatePoints: function(currPoints, pts, i) {
+  animatePoints: function($points, currPoints, pts, i) {
     setTimeout(function() {
-      console.log(currPoints + (1 + i);
-    }, i * 100);
-    // $('#points').html(game.points + ' pts');
+      $points.text(currPoints + 1 + i +" pts");
+    }, i * 30);
   },
 
   addPoints: function(pts, completion) {
+    var $points = $('#points');
     var currPoints = parseInt($('#points').html());
-    for (var i = 0; i < pts; i++) {
-      UI.animatePoints(currPoints, pts, i);
-    }
-
-    var $form = $('#points');
-    $form.addClass('bloop');
     setTimeout(function() {
-      $form.removeClass('bloop');
+      for (var i = 0; i < pts; i++) {
+        UI.animatePoints($points, currPoints, pts, i);
+      }
+    }, 200);
+
+    $points.addClass('bloop');
+    setTimeout(function() {
+      $points.removeClass('bloop');
     }, 800);
-
-    // var top = $('#points').offset().top;
-    // var $p = $('<p class="new-points"></p>');
-    // $p.html('+' + pts);
-    // $('body').append($p);
-    // var width = $p.width();
-    // var height = $p.height();
-    // $p.css({ 'margin-left' : -(width / 2), 'bottom' : '11%' });
-    // var done = false;
-    // $p.bind('webkitTransitionEnd transitionend oTransitionEnd', function(e) {
-    //   if (e.currentTarget === $p[0] && !done) {
-    //     done = true;
-    //     $p.remove();
-    //   }
-    // });
-    setTimeout(function() {
-      $p.css({
-        '-webkit-transition-duration': '1.0s',
-        '-moz-transition-duration': '1.0s',
-        '-o-transition-duration': '1.0s',
-        '-transition-duration': '1.0s',
-        'transform' : 'translate3d(0px, -40px, 0px) scale(1.0)',
-        'opacity': '0'
-      });
-    }, 10);
   },
 
   preloadImage: function(image, callback) {
