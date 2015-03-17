@@ -30,10 +30,20 @@ Turn.prototype = {
           completion(null);
         }
       } else {
-        completion(null);
+        var match = this.record.name.match(guess);
+        if (match && match.length > 0) {
+          completion(Points.BIG);
+        } else {
+          completion(null);
+        }
       }
     } else {
-      completion(null);
+      var match = this.record.name.match(guess);
+      if (match && match.length > 0) {
+        completion(Points.BIG);
+      } else {
+        completion(null);
+      }
     }
   },
 
