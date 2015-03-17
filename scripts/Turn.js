@@ -4,11 +4,11 @@ var PlayingState = {
 };
 
 function Turn(onAlbumReceived, completion) {
-  this.record = {};
   this.guess;
   this.points;
-  this.song;
   this.state = PlayingState.GUESSING;
+  this.record = {};
+  this.song;
 
   this.getAlbum(onAlbumReceived, completion);
 }
@@ -17,6 +17,7 @@ Turn.prototype = {
   guess: function(guess, completion) {
     var fuzz = this.fuzz();
     if (fuzz === null) {
+      console.log('fuzzy match not loaded');
       return;
     }
     var results = fuzz.get(guess);
