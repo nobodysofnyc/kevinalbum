@@ -4,6 +4,7 @@ function reset() {
   if (game.turn) {
     game.turn.pauseAudioPreview();
   }
+
   UI.cleanup();
   game.newTurn(function() {
     UI.reset(function () {

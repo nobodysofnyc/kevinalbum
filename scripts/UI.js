@@ -11,11 +11,21 @@ var UI = {
     });
 
     $('.cover').css({
-      'transform' : 'scale(1.0)'
+      '-webkit-transform' : 'scale(1)',
+      'transform' : 'scale(1)'
     });
 
-    $('.container').removeClass('active');
-
+    var $container = $(".container");
+    $container.removeClass('active');
+    var $info = $container.find('.album-info');
+    $info.find('.album-name').html(game.turn.record.name);
+    $info.find('.album-artist').html(game.turn.record.artist);
+    $info.css({
+      '-webkit-transform' : 'translate3d(0px, -50px, 0px)',
+      '-moz-transform' : 'translate3d(0px, -50px, 0px)',
+      '-o-transform' : 'translate3d(0px, -50px, 0px)',
+      'transform' : 'translate3d(0px, -50px, 0px)'
+    });
     game.turn.state = PlayingState.REVEAL;
   },
 
@@ -24,9 +34,12 @@ var UI = {
     var height = window.innerHeight / 2;
     var containerWidth = window.innerHeight * perc;
     var $not = $('.container').not('.active');
+    var done = false;
     $not.bind('webkitTransitionEnd transitionend oTransitionEnd', function(e) {
-      $not.unbind('webkitTransitionEnd transitionend oTransitionEnd');
-      $(e.target).remove();
+      if (!done) {
+        done = true
+        $(e.target).remove();
+      }
     });
     $not.css({
       '-webkit-transform' : 'translate3d('+ -(width * 3 + (containerWidth / 2)) +'px, 0px, 0px) rotateZ(-10deg)',
@@ -41,9 +54,10 @@ var UI = {
     var containerHeight = window.innerHeight * perc;
     var doIt = function() {
       var $container = $('<div class="container active"></div>');
+      var $info = $('<div class="album-info"><p class="album-name"></p><p class="album-artist"></p></div>');
       var $cover = $('<div class="cover"></div>');
       var $sleeve = $('<div class="sleeve"><img src="images/albumsleeve_sm.png" /></div>');
-      $container.append($cover).append($sleeve);
+      $container.append($info).append($cover).append($sleeve);
       $container.css({
         'top' : height - (containerHeight / 2),
         'left' : window.outerWidth,

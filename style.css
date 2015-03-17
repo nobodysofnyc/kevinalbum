@@ -1,3 +1,4 @@
+*, *::before, *::after { box-sizing: border-box; }
 html, body, .table, .cell {
   width: 100%;
   height: 100%;
@@ -7,7 +8,11 @@ html, body, .table, .cell {
 }
 
 body {
-  background-color: #E3E5E6;
+  background-color: rgba(194, 196, 199, 1.0);
+}
+
+p {
+  color: #fff;
 }
 
 .in-da-bg,
@@ -55,36 +60,37 @@ body {
   height: 100%;
   background-size: cover;
   background-position: center center;
-  -webkit-transform: scale(0.9);
-  -moz-transform: scale(0.9);
-  -o-transform: scale(0.9);
-  transform: scale(0.9);
-  -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -o-transition: 0.2s;
-  transition: 0.2s;
+  -webkit-transform: scale(0.9) rotateZ(0deg);
+  -moz-transform: scale(0.9) rotateZ(0deg);
+  -o-transform: scale(0.9) rotateZ(0deg);
+  transform: scale(0.9) rotateZ(0deg);
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .sleeve {
   width: 100%;
   height: 100%;
-  -webkit-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.6s;
 }
 
 .container {
+  z-index: 100;
   width: 60vh;
   padding-bottom: 60vh;
   height: 0px;
   display: inline-block;
-  -webkit-transition-duration: 0.6s;
-  -moz-transition-duration: 0.6s;
-  -o-transition-duration: 0.6s;
-  transition-duration: 0.6s;
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
   position: absolute;
-  -webkit-transform: scale(0.8);
-  -moz-transform: scale(0.8);
-  -o-transform: scale(0.8);
-  transform: scale(0.8);
+  -webkit-transform: scale(0.8) rotateZ(4deg);
+  -moz-transform: scale(0.8) rotateZ(4deg);
+  -o-transform: scale(0.8) rotateZ(4deg);
+  transform: scale(0.8) rotateZ(4deg);
 }
 
 #points {
@@ -96,4 +102,42 @@ body {
   font-family: sans-serif;
   margin: 0px;
   padding: 0px;
+}
+
+#guess-form {
+  position: absolute;
+  bottom: 10%;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 60vh;
+  margin: 0px;
+  padding: 4px 10px;
+  -webkit-appearance: none;
+  color: #fff;
+  -moz-appearance: none;
+  box-shadow: none;
+  border: none;
+  font-size: 24px;
+  background-color: transparent;
+  text-align: center;
+  outline: none;
+}
+
+.album-info {
+  -webkit-transform: translate3d(0px, 20px, 0px);
+  -moz-transform: translate3d(0px, 20px, 0px);
+  -o-transform: translate3d(0px, 20px, 0px);
+  transform: translate3d(0px, 20px, 0px);
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.album-info p {
+  margin: 0px; padding: 0px;
 }
