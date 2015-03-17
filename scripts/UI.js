@@ -10,6 +10,8 @@ var UI = {
       'transform' : 'translate3d('+ -width +'px, 0px, 0px) rotateZ(-10deg)',
     });
 
+    $('input').blur();
+
     $('.cover').css({
       '-webkit-transform' : 'scale(1)',
       'transform' : 'scale(1)'
@@ -20,11 +22,12 @@ var UI = {
     var $info = $container.find('.album-info');
     $info.find('.album-name').html(game.turn.record.name);
     $info.find('.album-artist').html(game.turn.record.artist);
+    var height = $info.height() + 12;
     $info.css({
-      '-webkit-transform' : 'translate3d(0px, -50px, 0px)',
-      '-moz-transform' : 'translate3d(0px, -50px, 0px)',
-      '-o-transform' : 'translate3d(0px, -50px, 0px)',
-      'transform' : 'translate3d(0px, -50px, 0px)'
+      '-webkit-transform' : 'translate3d(0px, -'+ height +'px, 0px)',
+      '-moz-transform' : 'translate3d(0px, -'+ height +'px, 0px)',
+      '-o-transform' : 'translate3d(0px, -'+ height +'px, 0px)',
+      'transform' : 'translate3d(0px, -'+ height +'px, 0px)'
     });
     game.turn.state = PlayingState.REVEAL;
   },

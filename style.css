@@ -4,7 +4,7 @@ html, body, .table, .cell {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-family: "jaf-facitweb",sans-serif;
+  font-family: "aktiv-grotesk-std",sans-serif;
 }
 
 body {
@@ -13,6 +13,38 @@ body {
 
 p {
   color: #fff;
+}
+
+.header {
+  position: relative;
+  padding: 0px 10px;
+}
+
+.brand {
+  font-size: 20px;
+  position: absolute;
+  left: 24px;
+}
+
+#points {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px;
+  left: 0;
+}
+
+a.share {
+  background-image: url(images/share.png);
+  background-size: 20px 26px;
+  background-repeat: no-repeat;
+  height: 26px;
+  width: 20px;
+  right: 24px;
+  margin: 20px 0px;
+  position: absolute;
 }
 
 .in-da-bg,
@@ -93,23 +125,13 @@ p {
   transform: scale(0.8) rotateZ(4deg);
 }
 
-#points {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  top: 10px;
-  font-size: 20px;
-  font-family: sans-serif;
-  margin: 0px;
-  padding: 0px;
-}
-
 #guess-form {
   position: absolute;
   bottom: 10%;
   left: 0px;
   width: 100%;
   text-align: center;
+
 }
 
 input[type="text"] {
@@ -140,4 +162,23 @@ input[type="text"] {
 
 .album-info p {
   margin: 0px; padding: 0px;
+}
+
+p.album-name {
+  font-size: 19px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+p.album-artist {
+  font-size: 15px;
+  color: #f2f2f2;
+}
+
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) {
+  a.share {
+    background-image: url(images/share@2x.png);
+  }
 }
