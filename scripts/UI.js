@@ -87,8 +87,18 @@ var UI = {
     $('#guess').val('').focus();
   },
 
-  animateNewPoints: function(pts, completion) {
-    $('#points').html(game.points + ' pts');
+  animatePoints: function(currPoints, pts, i) {
+    setTimeout(function() {
+      console.log(currPoints + (1 + i);
+    }, i * 100);
+    // $('#points').html(game.points + ' pts');
+  },
+
+  addPoints: function(pts, completion) {
+    var currPoints = parseInt($('#points').html());
+    for (var i = 0; i < pts; i++) {
+      UI.animatePoints(currPoints, pts, i);
+    }
 
     var $form = $('#points');
     $form.addClass('bloop');

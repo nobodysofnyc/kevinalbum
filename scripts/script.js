@@ -32,7 +32,7 @@ $(document).ready(function() {
       game.turn.guess(val, function(pts) {
         if (pts !== null) {
           game.points += pts;
-          UI.animateNewPoints(pts);
+          UI.addPoints(pts);
         } else {
           console.log('you lost points maybe we havent set rules for that yet');
         }
