@@ -2,22 +2,33 @@ function Game() {
   this.points = 0;
   this.turnQueue = [];
   this.turn;
+  this.turnCount = 0;
+  this.maxTurns = 3;
   this.QUEUE_MAX_CAPACITY = 3;
 }
 
 Game.prototype = {
   newTurn: function(callback) {
-    if (this.turnQueue[0] !== undefined) {
-      this.turn = this.turnQueue[0];
-      this.turnQueue.shift();
-      callback();
-    } else {
-      this.turn = new Turn(function(art) {
-        UI.preloadImage(art);
-      }, callback);
-    }
+    this.turnCount++;
 
-    this._maintainTurnQueue();
+    if (this.turnCount <= this.maxTurns) {
+      if (this.turnQueue[0] !== undefined) {
+        this.turn = this.turnQueue[0];
+        this.turnQueue.shift();
+        callback();
+      } else {
+        this.turn = new Turn(function(art) {
+          UI.preloadImage(art);
+        }, callback);
+      }
+      this._maintainTurnQueue();
+    } else {
+      callback(true);
+    }
+  },
+
+  turnsLeft: function() {
+    return this.maxTurns - this.turnCount;
   },
 
   _maintainTurnQueue: function() {

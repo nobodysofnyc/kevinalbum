@@ -221,3 +221,9 @@ a#skip {
   50% { transform: scale(2.0) color: rgb(13, 245, 157); }
   100% { transform: scale(1.0) color: black; }
 }
+
+#turn-count {
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}

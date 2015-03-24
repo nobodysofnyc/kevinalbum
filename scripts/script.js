@@ -6,10 +6,15 @@ function reset() {
   }
 
   UI.cleanup();
-  game.newTurn(function() {
-    UI.reset(function () {
-      $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + game.turn.record.art + ')').css('opacity', '1');
-    });
+  game.newTurn(function(gameOver) {
+    if (gameOver) {
+      console.log('game over');
+    } else {
+      $('#turn-count').html(game.turnCount + "/" + game.maxTurns);
+      UI.reset(function () {
+        $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + game.turn.record.art + ')').css('opacity', '1');
+      });
+    }
   });
 }
 
