@@ -221,3 +221,31 @@ a#skip {
   50% { transform: scale(2.0) color: rgb(13, 245, 157); }
   100% { transform: scale(1.0) color: black; }
 }
+
+.credits {
+  z-index: 4;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.credits h1 {
+  text-align: center;
+  color: white;
+  text-shadow: 3px 3px 3px rgba(0,0,0,0.8);
+  margin-bottom: 5px;
+  margin-top: 5em;
+  font-size: 2.4em;
+}
+
+.credits h2 {
+  text-align: center;
+  color: white;
+  text-shadow: 3px 3px 3px rgba(0,0,0,0.8);
+  margin-top: 0px;
+  font-size: 2.1em;
+}
+
+.credits h1.on, h2.on {
+  color: yellow;
+}
