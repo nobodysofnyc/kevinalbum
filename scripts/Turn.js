@@ -1,3 +1,12 @@
+var HIGH_THRESHOLD = 0.7;
+var LOW_THRESHOLD = 0.33;
+
+var Points = {
+  ALL: 10,
+  BIG: 7,
+  SMALL: 3
+}
+
 var PlayingState = {
   GUESSING: 0,
   REVEAL: 1
@@ -26,7 +35,7 @@ Turn.prototype = {
     }
     var results = fuzz.get(guess);
     if (results && results.length && results[0].length) {
-      if (results[0][0] > THRESHOLD) {
+      if (results[0][0] > HIGH_THRESHOLD) {
         var match = results[0][1];
         if (match) {
           completion(Points.BIG);
@@ -34,16 +43,16 @@ Turn.prototype = {
           completion(null);
         }
       } else {
-        var match = this.record.name.toLowerCase().match(guess);
-        if (match && match.length > 0) {
+        var match = this.fuzzyMatch(guess);
+        if (match && match > LOW_THRESHOLD) {
           completion(Points.SMALL);
         } else {
           completion(null);
         }
       }
     } else {
-      var match = this.record.name.toLowerCase().match(guess);
-      if (match && match.length > 0) {
+      var match = this.fuzzyMatch(guess);
+      if (match && match > LOW_THRESHOLD) {
         completion(Points.SMALL);
       } else {
         completion(null);
@@ -59,6 +68,18 @@ Turn.prototype = {
         this.record.name
       ]);
     }
+  },
+
+  fuzzyMatch: function(guess) {
+    var words = guess.split(" ");
+    var match = this.record.name.toLowerCase().split(' ');
+    var matches = 0;
+    for (var i = 0; i < words.length; i++) {
+      if (match.indexOf(words[i]) !== -1) {
+        matches++;
+      }
+    }
+    return matches / match.length;
   },
 
   getAlbum: function(onAlbumReceived, completion) {
