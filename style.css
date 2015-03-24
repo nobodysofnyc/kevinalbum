@@ -8,11 +8,11 @@ html, body, .table, .cell {
 }
 
 body {
-  background-color: rgba(194, 196, 199, 1);
+  background-color: #ffffff;
 }
 
 p {
-  color: #fff;
+  color: #939393;
 }
 
 .header {
@@ -34,21 +34,24 @@ p {
   font-weight: bold;
   padding: 0px;
   left: 0;
+  color: black;
 }
 
 .bloop {
   -webkit-animation: bloop 0.8s;
 }
 
-a.share {
-  background-image: url(images/share.png);
-  background-size: 20px 26px;
-  background-repeat: no-repeat;
-  height: 26px;
-  width: 20px;
-  right: 24px;
-  margin: 20px 0px;
+.share {
   position: absolute;
+  right: 24px;
+}
+
+.share a {
+  font-size: 20px;
+  line-height: 3.4em;
+  text-decoration: none;
+  padding-left: 0.3em;
+  color: #939393;
 }
 
 .in-da-bg,
@@ -131,7 +134,7 @@ a.share {
 
 #guess-form {
   position: absolute;
-  bottom: 10%;
+  bottom: 8%;
   left: 0px;
   width: 100%;
   text-align: center;
@@ -143,7 +146,7 @@ input[type="text"] {
   margin: 0px;
   padding: 4px 10px;
   -webkit-appearance: none;
-  color: rgb(126, 130, 139);
+  color: black;
   -moz-appearance: none;
   box-shadow: none;
   border: none;
@@ -151,6 +154,7 @@ input[type="text"] {
   background-color: transparent;
   text-align: center;
   outline: none;
+  margin-bottom: 2%;
 }
 
 .album-info {
@@ -169,22 +173,25 @@ input[type="text"] {
 }
 
 p.album-name {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: bold;
   margin-bottom: 2px;
 }
 
 p.album-artist {
-  font-size: 15px;
-  color: #f2f2f2;
+  font-size: 13px;
+  color: #B8B8B8;
 }
 
-@media
-(-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
-  a.share {
-    background-image: url(images/share@2x.png);
-  }
+a#skip {
+  font-size: 12px;
+  font-weight: 600;
+  color: #B8B8B8;
+  position: fixed;
+  bottom: 18px;
+  margin-left: -50px;
+  width: 100px;
+  left: 50%;
 }
 
 .new-points {
@@ -201,13 +208,13 @@ p.album-artist {
 }
 
 @-webkit-keyframes bloop {
-  0% { -webkit-transform: scale(1.0); color: #fff; }
+  0% { -webkit-transform: scale(1.0); color: black; }
   50% { -webkit-transform: scale(2.0); color: rgb(13, 245, 157); }
-  100% { -webkit-transform: scale(1.0); color: #fff; }
+  100% { -webkit-transform: scale(1.0); color: black; }
 }
 
 @keyframes bloop {
-  0% { transform: scale(1.0) color: #fff; }
+  0% { transform: scale(1.0) color: black; }
   50% { transform: scale(2.0) color: rgb(13, 245, 157); }
-  100% { transform: scale(1.0) color: #fff; }
+  100% { transform: scale(1.0) color: black; }
 }
