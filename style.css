@@ -92,17 +92,31 @@ p {
   width: 60vh;
   height: 60vh;
   background-color: white;
-  border: 2px solid #939393;
+  border: 2px solid #CDCDCD;
   border-radius: 2px;
 }
 
 .start-circle {
-  width: 8em;
-  height: 8em;
+  width: 36.07%;
+  padding-bottom: 35%;
   background-color: white;
-  border: 2px solid #939393;
+  border: 2px solid #CDCDCD;
   border-radius: 150px;
   margin: 0 auto;
+  position: relative;
+}
+
+a.btn-start {
+  background-color: rgb(13, 245, 157);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  line-height: 59px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -30px;
+  margin-top: -30px;
 }
 
 .cover, .sleeve {
