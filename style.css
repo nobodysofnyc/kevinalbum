@@ -256,6 +256,8 @@ a#skip {
 
 #turn-count {
   position: absolute;
-  bottom: 0px;
-  right: 20px;
+  top: 36px;
+  text-align: center;
+  width: 100%;
+  font-size: 13px;
 }
