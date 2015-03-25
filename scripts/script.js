@@ -10,7 +10,7 @@ function reset() {
     if (gameOver) {
       console.log('game over');
     } else {
-      $('#turn-count').html(game.turnCount + "/" + game.maxTurns);
+      $('#turn-count').html(game.turnCount + " of " + game.maxTurns);
       UI.reset(function () {
         $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + game.turn.record.art + ')').css('opacity', '1');
       });
