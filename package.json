@@ -1,0 +1,33 @@
+{
+  "name": "kevinalbum",
+  "version": "1.0.0",
+  "description": "Guess that album",
+  "main": "index.js",
+  "dependencies" : {
+    "express": "^4.12.3",
+    "ws": "^0.7.1",
+    "underscore": "^1.8.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nobodysofnyc/kevinalbum.git"
+  },
+  "keywords": [
+    "music",
+    "spotify",
+    "guess",
+    "game",
+    "fun",
+    "album"
+  ],
+  "author": "Mike Kavouras",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nobodysofnyc/kevinalbum/issues"
+  },
+  "homepage": "https://github.com/nobodysofnyc/kevinalbum"
+}
