@@ -27,5 +27,14 @@ var Spotify = {
         console.log(error);
       }
     });
+  },
+
+  connect: function() {
+    var url = "https://accounts.spotify.com/authorize";
+    url += "?client_id=949a744dce1840bb957e8e1da976ccc9";
+    url += "&response_type=code";
+    url += "&scope=";
+    url += "&redirect_uri=" + encodeURIComponent("http://nobodysofnyc.com/kevinalbum");
+    document.location = url;
   }
 };

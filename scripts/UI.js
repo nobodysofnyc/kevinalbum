@@ -1,7 +1,34 @@
 var perc = 0.6;
 var sleeveLoaded = false;
 var UI = {
-  reveal: function() {
+  showPlayWithFriendModal: function() {
+    var $overlay = $('<div id="overlay"></div>');
+    $('.in-da-fg').addClass('blur-dat');
+    $('.in-da-bg').addClass('blur-dat');
+    var $sheet = UI._buildShareSheet();
+    $sheet.css({
+      'margin-left' : -($sheet.width() / 2),
+      'margin-top' : -($sheet.height() / 2)
+    }).fadeIn('slow');
+  },
+
+  hidePlayWithFriendModal: function() {
+    $('.in-da-fg').removeClass('blur-dat');
+    $('.in-da-bg').removeClass('blur-dat');
+    $('#modal-bg').fadeOut('slow', function() {
+      $(this).remove();
+    });
+    $('#modal').fadeOut('slow', function() {
+      $(this).remove();
+    });
+
+  },
+
+  updateTurnCount: function(number, outOf) {
+    $('#turn-count').html(number + " of " + outOf);
+  },
+
+  reveal: function(turn) {
     var width = window.outerWidth / 2 + (window.outerHeight * perc);
     $('.sleeve').css({
       '-webkit-transform' : 'translate3d('+ -width +'px, 0px, 0px) rotateZ(-10deg)',
@@ -20,8 +47,8 @@ var UI = {
     var $container = $(".container");
     $container.removeClass('active');
     var $info = $container.find('.album-info');
-    $info.find('.album-name').html(game.turn.record.name);
-    $info.find('.album-artist').html(game.turn.record.artist);
+    $info.find('.album-name').html(turn.record.name);
+    $info.find('.album-artist').html(turn.record.artist);
     var height = $info.height() + 12;
     $info.css({
       '-webkit-transform' : 'translate3d(0px, -'+ height +'px, 0px)',
@@ -29,7 +56,7 @@ var UI = {
       '-o-transform' : 'translate3d(0px, -'+ height +'px, 0px)',
       'transform' : 'translate3d(0px, -'+ height +'px, 0px)'
     });
-    game.turn.state = PlayingState.REVEAL;
+    turn.state = PlayingState.REVEAL;
   },
 
   cleanup: function() {
@@ -52,7 +79,7 @@ var UI = {
     });
   },
 
-  reset: function(completion) {
+  reset: function() {
     var height = window.innerHeight / 2.0;
     var containerHeight = window.innerHeight * perc;
     var doIt = function() {
@@ -76,7 +103,7 @@ var UI = {
           '-o-transform' : 'translate3d('+ -(width + 250) +'px, 0px, 0px) scale(1.0)',
           'transform' : 'translate3d('+ -(width + (containerHeight / 2)) +'px, 0px, 0px) scale(1.0)',
         });
-        completion();
+        $('.container.active').find('.cover').not('.active').css('background-image', 'url(' + game.turn.record.art + ')').css('opacity', '1');
       }, 100);
     }
 
@@ -93,7 +120,7 @@ var UI = {
     }, i * 30);
   },
 
-  addPoints: function(pts, completion) {
+  addPoints: function(pts) {
     var $points = $('#points');
     var currPoints = parseInt($('#points').html());
     setTimeout(function() {
@@ -112,6 +139,19 @@ var UI = {
     var i = new Image();
     i.onload = callback;
     i.src = image
+  },
+
+  _buildShareSheet: function() {
+     var $container = $('<div id="modal-bg"></div>');
+     var $div = $('<div id="modal"></div>');
+     var $header = $('<h4>Share this with a friend</h4>');
+     var $code = $('<p>' + Code.random(4) + '</p>');
+     $('body').append($container).append($div.append($header).append($code));
+     $container.bind('click', function() {
+       UI.hidePlayWithFriendModal();
+     });
+     return $div;
   }
+
 }
 

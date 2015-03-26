@@ -18,6 +18,7 @@
       <div class="header">
         <p class="brand">KevinAlbum</p>
         <p id="points">0 pts</p>
+        <p id="turn-count"></p>
         <div class="share">
           <a href="#"><i class="ss-twitter"></i></a>
           <a href="#"><i class="ss-facebook"></i></a>
@@ -27,6 +28,7 @@
         <input type="text" id="guess">
         <a id="skip">Skip</a>
       </form>
+      <a href="javascript://" id="link-da-peeps">friend?</a>
     </div>
 
     <div class="in-da-bg">
@@ -36,7 +38,6 @@
       </div>
     </div>
 
-    <p id="turn-count"></p>
 
     <script src="scripts/Album.js"></script>
     <script src="scripts/UI.js"></script>
@@ -45,7 +46,13 @@
     <script src="scripts/Spotify.js"></script>
     <script src="scripts/LastFM.js"></script>
     <script src="scripts/FuzzySet.js"></script>
+    <script src="scripts/Code.js"></script>
     <script src="scripts/script.js"></script>
+
+    <script>
+      var host = location.origin.replace(/^http/, 'ws');
+      var ws = new WebSocket(host);
+    </script>
   </body>
 
 </html>
