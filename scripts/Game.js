@@ -1,3 +1,8 @@
+var GameMode = {
+  SINGLE_PLAYER: 0,
+  MULTI_PLAYER: 1
+};
+
 function Game() {
   this.points = 0;
   this.turnQueue = [];
@@ -5,6 +10,7 @@ function Game() {
   this.turnCount = 0;
   this.maxTurns = 20;
   this.QUEUE_MAX_CAPACITY = 3;
+  this.mode = GameMode.SINGLE_PLAYER;
 }
 
 Game.prototype = {
