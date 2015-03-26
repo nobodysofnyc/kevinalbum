@@ -3,7 +3,7 @@ function Game() {
   this.turnQueue = [];
   this.turn;
   this.turnCount = 0;
-  this.maxTurns = 3;
+  this.maxTurns = 20;
   this.QUEUE_MAX_CAPACITY = 3;
 }
 
