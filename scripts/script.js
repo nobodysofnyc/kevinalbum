@@ -81,7 +81,7 @@ $(document).ready(function() {
 
   $('#link-da-peeps').bind('click', function() {
     game.setMode(GameMode.MULTI_PLAYER, function() {
-      var turns = game.turnQueue;
+      var turns = game.turnQueue.slice();
       turns.unshift(game.turn);
       network.createNewGame({
         data: {
