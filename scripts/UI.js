@@ -148,7 +148,7 @@ var UI = {
      var $container = $('<div id="modal-bg"></div>');
      var $div = $('<div id="modal"></div>');
      var $header = $('<h4>Play together, not the same.</h4>');
-     var $code = $('<p>'+ document.location.origin +'?code='+ sessionCode +'</p>');
+     var $code = $('<p>'+ document.location.origin +'?code='+ game.code +'</p>');
      $('body').append($container).append($div.append($header).append($code));
      $container.bind('click', function() {
        UI.hidePlayWithFriendModal();

@@ -5,6 +5,7 @@ var Request = {
   NEW_MULTIPLAYER_GAME_SETUP: 3,
   NEW_GAME_JOINED: 4,
   JOINED_YOUR_GAME: 5,
+  PLAYER_DISCONNECTED: 6
 };
 
 function Network(onEvent) {
@@ -42,7 +43,7 @@ Network.prototype = {
     this.send({
       type: Request.TURN_GUESSED,
       data: {
-        uuid: game.uuid,
+        code: game.code,
         guess: guess,
         points: points || 0
       }

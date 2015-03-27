@@ -5,6 +5,7 @@ var GameMode = {
 
 function Game() {
   this.uuid;
+  this.code = Utils.randomString(4);
   this.points = 0;
   this.turnQueue = [];
   this.turn;

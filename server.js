@@ -19,6 +19,16 @@ wss.on("connection", function(ws) {
 
   ws.on("close", function() {
     console.log('websocket closed');
+    var results = GameCoordinator.personDisconnected(ws);
+    var games = results.map(function(result) {
+      return result.game
+    });
+    for (var i = 0; i < games.length; i++) {
+       games[i].players.not(ws).ws.send(JSON.stringify({
+        type: Request.PLAYER_DISCONNECTED
+       }));
+       GameCoordinator.removeGame(games[i]);
+    }
   });
 
   ws.on("message", function(message) {
@@ -44,6 +54,7 @@ var Request = {
   NEW_MULTIPLAYER_GAME_SETUP: 3,
   NEW_GAME_JOINED: 4,
   JOINED_YOUR_GAME: 5,
+  PLAYER_DISCONNECTED: 6
 }
 
 function handleSocketEvent(data, ws) {
@@ -65,19 +76,20 @@ function handleSocketEvent(data, ws) {
           type: Request.NEW_GAME_JOINED,
           game: {
             turns: game.turns,
-            uuid: game.uuid
+            uuid: game.uuid,
+            code: game.code
           }
         }));
 
-        game.players.not(ws).send(JSON.stringify({
+        game.players.not(ws).ws.send(JSON.stringify({
           type: Request.JOINED_YOUR_GAME
         }))
       }
       break;
     case Request.TURN_GUESSED:
-      var game = GameCoordinator.findByUUID(data.data.uuid);
+      var game = GameCoordinator.findByCode(data.data.code);
       if (game) {
-        game.players.not(ws).send(JSON.stringify({
+        game.players.not(ws).ws.send(JSON.stringify({
           type: Request.TURN_GUESSED,
           data: data.data
         }))

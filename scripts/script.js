@@ -3,7 +3,6 @@ var network = new Network(function(event) {
   processWebSocketEvent(event);
 });
 var id = Utils.randomString(24);
-var sessionCode = Utils.randomString(4);
 
 function reset() {
   if (game.turn) {
@@ -40,6 +39,7 @@ function processWebSocketEvent(event) {
         return turn.record.name;
       })
       game.uuid = data.game.uuid;
+      game.code = data.game.code;
       console.log("You've joined the game!");
       reset();
       break;
@@ -50,6 +50,10 @@ function processWebSocketEvent(event) {
     case Request.TURN_GUESSED:
       console.log(data);
       console.log('Your opponent guessed "'+ data.data.guess +'"');
+      break;
+    case Request.PLAYER_DISCONNECTED:
+      console.log('opponent has disconnected');
+      alert("Your oppenent is weaker than you and has given up");
       break;
     default:
       break;
@@ -98,7 +102,7 @@ $(document).ready(function() {
       turns.unshift(game.turn);
       network.createNewGame({
         data: {
-          code: sessionCode,
+          code: game.code,
           turns: turns.map(function(t) { return t.asJSON(); })
         }
       });
