@@ -49,7 +49,8 @@ function processWebSocketEvent(event) {
       break;
     case Request.TURN_GUESSED:
       console.log(data);
-      console.log('Your opponent guessed "'+ data.data.guess +'"');
+      game.turn.opponentGuess = data.data.guess;
+      console.log('Your opponent has guessed...');
       break;
     case Request.PLAYER_DISCONNECTED:
       console.log('opponent has disconnected');

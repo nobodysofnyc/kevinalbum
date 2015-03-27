@@ -18,6 +18,7 @@ function Turn(onAlbumReceived, completion, remoteData) {
   this.state = PlayingState.GUESSING;
   this.record = remoteData ? remoteData.record : {};
   this.song = remoteData ? (remoteData.song ? this.createTurnAudio(remoteData.song) : null) : null;
+  this.opponentGuess;
 
   if (remoteData === undefined) {
     this.getAlbum(onAlbumReceived, completion);
