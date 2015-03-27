@@ -42,8 +42,9 @@ Network.prototype = {
     this.send({
       type: Request.TURN_GUESSED,
       data: {
+        code: sessionCode,
         guess: guess,
-        points: points
+        points: points || 0
       }
     });
   },

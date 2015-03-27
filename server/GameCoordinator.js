@@ -31,6 +31,10 @@ GameCoordinator.prototype = {
     } else {
       console.log("attempting to join a game that doesn't exist");
     }
+  },
+
+  findByCode: function(code) {
+    return this.games[code];
   }
 };
 

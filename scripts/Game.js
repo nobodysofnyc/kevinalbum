@@ -35,6 +35,7 @@ Game.prototype = {
   },
 
   setMode: function(mode, completion) {
+    this.mode = mode;
     switch (mode) {
       case GameMode.SINGLE_PLAYER:
         break;
@@ -71,9 +72,6 @@ Game.prototype = {
       });
       this.turnQueue.push(turn);
     }
-    // for (var i = 0; i < max - this.turnQueue.length; i++) {
-    //   console.log(i);
-    // }
   },
 
   addPoints: function(points) {

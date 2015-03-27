@@ -6,7 +6,7 @@ var app = express();
 var port = process.env.PORT || 5000;
 var server = http.createServer(app);
 
-var GameCoordinator = require("./server/game").coordinator;
+var GameCoordinator = require("./server/GameCoordinator").coordinator;
 
 server.listen(port);
 app.use(express.static(__dirname + "/"));
@@ -73,7 +73,17 @@ function handleSocketEvent(data, ws) {
           type: Request.JOINED_YOUR_GAME
         }))
       }
+      break;
     case Request.TURN_GUESSED:
+      var game = GameCoordinator.findByCode(data.data.code);
+      console.log(data.data.code);
+      console.log(game);
+      console.log(GameCoordinator.games);
+      if (game) {
+        game.players.not(ws).send(JSON.stringify({
+          type: Request.TURN_GUESSED
+        }))
+      }
       break;
     default:
       break;

@@ -30,7 +30,7 @@ function reveal() {
 function processWebSocketEvent(event) {
   var data = JSON.parse(event.data);
   switch (data.type) {
-    case Request.NEW_MULTIPLAYER_GAME_BEGAN:
+    case Request.NEW_MULTIPLAYER_GAME_SETUP:
       game.uuid = data.game.uuid;
       console.log("game is set up")
       break;
@@ -48,6 +48,7 @@ function processWebSocketEvent(event) {
       console.log("Someone's joined your game");
       break;
     case Request.TURN_GUESSED:
+      console.log('Your opponent has made a guess');
       break;
     default:
       break;
@@ -58,6 +59,7 @@ function processWebSocketEvent(event) {
 $(document).ready(function() {
   var code = Utils.getParameterByName("code");
   if (code !== "") {
+    game.mode = GameMode.MULTI_PLAYER;
     network.joinGame(code);
   } else {
     reset();
