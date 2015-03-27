@@ -4,6 +4,7 @@ var GameMode = {
 };
 
 function Game() {
+  this.uuid;
   this.points = 0;
   this.turnQueue = [];
   this.turn;

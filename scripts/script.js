@@ -30,12 +30,17 @@ function reveal() {
 function processWebSocketEvent(event) {
   var data = JSON.parse(event.data);
   switch (data.type) {
+    case "new_multiplayer_game_began":
+      game.uuid = data.game.uuid;
+      console.log("game is set up")
+      break;
     case "new_game_joined":
       game.turnQueue = data.game.turns.map(function(turn) { return new Turn(null, null, turn) });
       var names = game.turnQueue.map(function(turn) {
         return turn.record.name;
       })
-      console.log(names);
+      game.uuid = data.game.uuid;
+      console.log(data);
       reset();
       break;
     case "joined_your_game":

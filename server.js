@@ -26,6 +26,13 @@ wss.on("connection", function(ws) {
     switch (data.type) {
       case "new_multiplayer_game":
         var game = GameCoordinator.newGame(data, ws);
+        game.uuid = guid();
+        ws.send(JSON.stringify({
+          type: "new_multiplayer_game_began",
+          game: {
+            uuid: game.uuid
+          }
+        }));
         break;
       case "join_multiplayer_game":
         var game = GameCoordinator.joinGame(data, ws);
@@ -33,7 +40,8 @@ wss.on("connection", function(ws) {
           ws.send(JSON.stringify({
             type: "new_game_joined",
             game: {
-              turns: game.turns
+              turns: game.turns,
+              uuid: game.uuid
             }
           }));
 
