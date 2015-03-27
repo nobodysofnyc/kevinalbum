@@ -32,7 +32,6 @@ Turn.prototype = {
     }
     var fuzz = this.fuzz();
     if (fuzz === null) {
-      console.log('fuzzy match not loaded');
       return;
     }
     var results = fuzz.get(guess);
@@ -87,7 +86,6 @@ Turn.prototype = {
   getAlbum: function(onAlbumReceived, completion) {
     var self = this;
     LastFM.getAlbum(function(album) {
-      console.log("got album from last.fm");
       var i = album.image[album.image.length - 1];
       var src = i[Object.keys(i)[0]];
       if (onAlbumReceived) {
@@ -97,16 +95,13 @@ Turn.prototype = {
       self.record = album;
       Spotify.getAlbum(album, function(spotifyAlbum) {
         if (spotifyAlbum) {
-          console.log('got album from spotify');
           Spotify.getSongs(spotifyAlbum, function(songs) {
-            console.log('got songs from spotify');
             self.song = self.createTurnAudio(songs[0].preview_url);
             if (completion) {
               completion();
             }
           });
         } else {
-          console.log('not on spotify');
           if (completion) {
             completion();
           }

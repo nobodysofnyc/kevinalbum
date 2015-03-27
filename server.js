@@ -23,35 +23,7 @@ wss.on("connection", function(ws) {
 
   ws.on("message", function(message) {
     var data = JSON.parse(message);
-    switch (data.type) {
-      case "new_multiplayer_game":
-        var game = GameCoordinator.newGame(data, ws);
-        game.uuid = guid();
-        ws.send(JSON.stringify({
-          type: "new_multiplayer_game_began",
-          game: {
-            uuid: game.uuid
-          }
-        }));
-        break;
-      case "join_multiplayer_game":
-        var game = GameCoordinator.joinGame(data, ws);
-        if (game) {
-          ws.send(JSON.stringify({
-            type: "new_game_joined",
-            game: {
-              turns: game.turns,
-              uuid: game.uuid
-            }
-          }));
-
-          game.players.not(ws).send(JSON.stringify({
-            type: "joined_your_game"
-          }))
-        }
-      default:
-        break;
-    }
+    handleSocketEvent(data, ws);
   });
 });
 
@@ -63,6 +35,49 @@ function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+var Request = {
+  NEW_MULTIPLAYER_GAME: 0,
+  JOIN_MULTIPLAYER_GAME: 1,
+  TURN_GUESSED: 2,
+  NEW_MULTIPLAYER_GAME_SETUP: 3,
+  NEW_GAME_JOINED: 4,
+  JOINED_YOUR_GAME: 5,
+}
+
+function handleSocketEvent(data, ws) {
+  switch (data.type) {
+    case Request.NEW_MULTIPLAYER_GAME:
+      var game = GameCoordinator.newGame(data, ws);
+      game.uuid = guid();
+      ws.send(JSON.stringify({
+        type: Request.NEW_MULTIPLAYER_GAME_SETUP,
+        game: {
+          uuid: game.uuid
+        }
+      }));
+      break;
+    case Request.JOIN_MULTIPLAYER_GAME:
+      var game = GameCoordinator.joinGame(data, ws);
+      if (game) {
+        ws.send(JSON.stringify({
+          type: Request.NEW_GAME_JOINED,
+          game: {
+            turns: game.turns,
+            uuid: game.uuid
+          }
+        }));
+
+        game.players.not(ws).send(JSON.stringify({
+          type: Request.JOINED_YOUR_GAME
+        }))
+      }
+    case Request.TURN_GUESSED:
+      break;
+    default:
+      break;
+  }
 }
 
 

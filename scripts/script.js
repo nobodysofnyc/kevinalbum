@@ -30,21 +30,24 @@ function reveal() {
 function processWebSocketEvent(event) {
   var data = JSON.parse(event.data);
   switch (data.type) {
-    case "new_multiplayer_game_began":
+    case Request.NEW_MULTIPLAYER_GAME_BEGAN:
       game.uuid = data.game.uuid;
       console.log("game is set up")
       break;
-    case "new_game_joined":
+    case Request.NEW_GAME_JOINED:
       game.turnQueue = data.game.turns.map(function(turn) { return new Turn(null, null, turn) });
       var names = game.turnQueue.map(function(turn) {
         return turn.record.name;
       })
       game.uuid = data.game.uuid;
-      console.log(data);
+      console.log("You've joined the game!");
       reset();
       break;
-    case "joined_your_game":
+    case Request.JOINED_YOUR_GAME:
       UI.hidePlayWithFriendModal();
+      console.log("Someone's joined your game");
+      break;
+    case Request.TURN_GUESSED:
       break;
     default:
       break;
@@ -73,6 +76,8 @@ $(document).ready(function() {
         } else {
           console.log('you lost points maybe we havent set rules for that yet');
         }
+
+        network.turnGuessed(val, pts);
       });
       reveal();
       $(window).bind('keypress.next', function(e) {
