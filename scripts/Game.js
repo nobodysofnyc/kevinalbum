@@ -55,7 +55,7 @@ Game.prototype = {
 
   _maintainTurnQueue: function(count, completion) {
     var done = 0;
-    var max = count || this.QUEUE_MAX_CAPACITY;
+    var max = count ? count -1 : this.QUEUE_MAX_CAPACITY;
     max = max - this.turnQueue.length;
     for (var i = 0; i < max; i++) {
       var turn = new Turn(function(art) {

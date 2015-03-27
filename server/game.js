@@ -1,3 +1,11 @@
+Array.prototype.not = function(ws) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i].uuid !== ws.uuid) {
+      return this[i];
+    }
+  }
+}
+
 function GameCoordinator() {
   this.games = {};
 };

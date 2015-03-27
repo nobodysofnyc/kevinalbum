@@ -1,5 +1,6 @@
 var perc = 0.6;
 var sleeveLoaded = false;
+
 var UI = {
   showPlayWithFriendModal: function(onClose) {
     var $overlay = $('<div id="overlay"></div>');

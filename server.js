@@ -14,6 +14,7 @@ app.use(express.static(__dirname + "/"));
 var wss = new WebSocket({ server: server });
 
 wss.on("connection", function(ws) {
+  ws.uuid = guid();
   console.log('websocket connected');
 
   ws.on("close", function() {
@@ -35,9 +36,25 @@ wss.on("connection", function(ws) {
               turns: game.turns
             }
           }));
+
+          game.players.not(ws).send(JSON.stringify({
+            type: "joined_your_game"
+          }))
         }
       default:
         break;
     }
   });
 });
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
+

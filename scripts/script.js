@@ -39,6 +39,7 @@ function processWebSocketEvent(event) {
       reset();
       break;
     case "joined_your_game":
+      UI.hidePlayWithFriendModal();
       break;
     default:
       break;
@@ -80,13 +81,14 @@ $(document).ready(function() {
 
   $('#link-da-peeps').bind('click', function() {
     game.setMode(GameMode.MULTI_PLAYER, function() {
+      var turns = game.turnQueue;
+      turns.unshift(game.turn);
       network.createNewGame({
         data: {
           code: sessionCode,
-          turns: game.turnQueue.map(function(t) { return t.asJSON(); })
+          turns: turns.map(function(t) { return t.asJSON(); })
         }
       });
-      reset();
     });
 
     UI.showPlayWithFriendModal(function() {
