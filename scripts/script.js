@@ -32,7 +32,15 @@ function processWebSocketEvent(event) {
   switch (data.type) {
     case "new_game_joined":
       game.turnQueue = data.game.turns.map(function(turn) { return new Turn(null, null, turn) });
+      var names = game.turnQueue.map(function(turn) {
+        return turn.record.name;
+      })
+      console.log(names);
       reset();
+      break;
+    case "joined_your_game":
+      break;
+    default:
       break;
   }
 }
@@ -41,11 +49,6 @@ function processWebSocketEvent(event) {
 $(document).ready(function() {
   var code = Utils.getParameterByName("code");
   if (code !== "") {
-    network.onGameJoined = function(g) {
-      console.log('butt');
-      game.turns = g.turns;
-      reset();
-    }
     network.joinGame(code);
   } else {
     reset();
@@ -83,6 +86,7 @@ $(document).ready(function() {
           turns: game.turnQueue.map(function(t) { return t.asJSON(); })
         }
       });
+      reset();
     });
 
     UI.showPlayWithFriendModal(function() {
