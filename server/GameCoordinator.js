@@ -33,8 +33,13 @@ GameCoordinator.prototype = {
     }
   },
 
-  findByCode: function(code) {
-    return this.games[code];
+  findByUUID: function(uuid) {
+    var self = this;
+    var keys = Object.keys(this.games);
+    var games = keys.map(function(key) { return self.games[key]; });
+    return games.filter(function (game) {
+      return game.uuid === uuid;
+    })[0];
   }
 };
 

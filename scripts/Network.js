@@ -42,7 +42,7 @@ Network.prototype = {
     this.send({
       type: Request.TURN_GUESSED,
       data: {
-        code: sessionCode,
+        uuid: game.uuid,
         guess: guess,
         points: points || 0
       }

@@ -48,7 +48,8 @@ function processWebSocketEvent(event) {
       console.log("Someone's joined your game");
       break;
     case Request.TURN_GUESSED:
-      console.log('Your opponent has made a guess');
+      console.log(data);
+      console.log('Your opponent guessed "'+ data.data.guess +'"');
       break;
     default:
       break;

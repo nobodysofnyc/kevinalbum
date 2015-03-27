@@ -75,13 +75,11 @@ function handleSocketEvent(data, ws) {
       }
       break;
     case Request.TURN_GUESSED:
-      var game = GameCoordinator.findByCode(data.data.code);
-      console.log(data.data.code);
-      console.log(game);
-      console.log(GameCoordinator.games);
+      var game = GameCoordinator.findByUUID(data.data.uuid);
       if (game) {
         game.players.not(ws).send(JSON.stringify({
-          type: Request.TURN_GUESSED
+          type: Request.TURN_GUESSED,
+          data: data.data
         }))
       }
       break;
