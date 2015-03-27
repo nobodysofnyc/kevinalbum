@@ -54,6 +54,7 @@ function processWebSocketEvent(event) {
     case Request.PLAYER_DISCONNECTED:
       console.log('opponent has disconnected');
       alert("Your oppenent is weaker than you and has given up");
+      game.mode = GameMode.SINGLE_PLAYER;
       break;
     default:
       break;
@@ -88,9 +89,11 @@ $(document).ready(function() {
       });
       reveal();
       $(window).bind('keypress.next', function(e) {
-        if (e.keyCode === 13 && game.turn.state == PlayingState.REVEAL) {
-          $(window).unbind('keypress.next');
-          reset();
+        if (game.mode == GameMode.SINGLE_PLAYER) {
+          if (e.keyCode === 13 && game.turn.state == PlayingState.REVEAL) {
+            $(window).unbind('keypress.next');
+            reset();
+          }
         }
       });
     }
