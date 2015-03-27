@@ -155,7 +155,7 @@ p {
 
 }
 
-input[type="text"] {
+input#guess {
   width: 60vh;
   margin: 0px;
   padding: 4px 10px;

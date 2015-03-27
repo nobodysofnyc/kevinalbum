@@ -12,14 +12,16 @@ var PlayingState = {
   REVEAL: 1
 };
 
-function Turn(onAlbumReceived, completion) {
+function Turn(onAlbumReceived, completion, remoteData) {
   this.guess;
   this.points;
   this.state = PlayingState.GUESSING;
-  this.record = {};
-  this.song;
+  this.record = remoteData ? remoteData.record : {};
+  this.song = remoteData ? (remoteData.song ? this.createTurnAudio(remoteData.song) : null) : null;
 
-  this.getAlbum(onAlbumReceived, completion);
+  if (remoteData === undefined) {
+    this.getAlbum(onAlbumReceived, completion);
+  }
 }
 
 Turn.prototype = {
@@ -98,10 +100,7 @@ Turn.prototype = {
           console.log('got album from spotify');
           Spotify.getSongs(spotifyAlbum, function(songs) {
             console.log('got songs from spotify');
-            audio = new Audio();
-            audio.setAttribute("loop", "loop");
-            audio.src = songs[0].preview_url;
-            self.song = audio;
+            self.song = self.createTurnAudio(songs[0].preview_url);
             if (completion) {
               completion();
             }
@@ -125,6 +124,24 @@ Turn.prototype = {
   pauseAudioPreview: function() {
     if (this.song != null) {
       this.song.pause();
+    }
+  },
+
+  createTurnAudio: function(src) {
+    audio = new Audio();
+    audio.setAttribute("loop", "loop");
+    audio.src = src;
+    return audio;
+  },
+
+  asJSON: function() {
+    return {
+      song: this.song ? this.song.getAttribute('src') : null,
+      record: {
+        name: this.record.name,
+        artist: this.record.artist,
+        art: this.record.art
+      }
     }
   }
 }

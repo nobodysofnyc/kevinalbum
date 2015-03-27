@@ -1,0 +1,43 @@
+var WebSocket = require("ws").Server;
+var http = require("http");
+var _ = require("underscore");
+var express = require("express");
+var app = express();
+var port = process.env.PORT || 5000;
+var server = http.createServer(app);
+
+var GameCoordinator = require("./server/game").coordinator;
+
+server.listen(port);
+app.use(express.static(__dirname + "/"));
+
+var wss = new WebSocket({ server: server });
+
+wss.on("connection", function(ws) {
+  console.log('websocket connected');
+
+  ws.on("close", function() {
+    console.log('websocket closed');
+  });
+
+  ws.on("message", function(message) {
+    var data = JSON.parse(message);
+    switch (data.type) {
+      case "new_multiplayer_game":
+        var game = GameCoordinator.newGame(data, ws);
+        break;
+      case "join_multiplayer_game":
+        var game = GameCoordinator.joinGame(data, ws);
+        if (game) {
+          ws.send(JSON.stringify({
+            type: "new_game_joined",
+            game: {
+              turns: game.turns
+            }
+          }));
+        }
+      default:
+        break;
+    }
+  });
+});

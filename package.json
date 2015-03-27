@@ -2,7 +2,7 @@
   "name": "kevinalbum",
   "version": "1.0.0",
   "description": "Guess that album",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies" : {
     "express": "^4.12.3",
     "ws": "^0.7.1",
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node index.js"
+    "start" : "node server.js"
   },
   "repository": {
     "type": "git",

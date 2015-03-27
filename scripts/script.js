@@ -1,4 +1,9 @@
 var game = new Game();
+var network = new Network(function(event) {
+  processWebSocketEvent(event);
+});
+var id = Utils.randomString(24);
+var sessionCode = Utils.randomString(4);
 
 function reset() {
   if (game.turn) {
@@ -22,9 +27,30 @@ function reveal() {
   game.turn.playAudioPreview();
 }
 
+function processWebSocketEvent(event) {
+  var data = JSON.parse(event.data);
+  switch (data.type) {
+    case "new_game_joined":
+      game.turnQueue = data.game.turns.map(function(turn) { return new Turn(null, null, turn) });
+      reset();
+      break;
+  }
+}
+
 // clicks and things
 $(document).ready(function() {
-  reset();
+  var code = Utils.getParameterByName("code");
+  if (code !== "") {
+    network.onGameJoined = function(g) {
+      console.log('butt');
+      game.turns = g.turns;
+      reset();
+    }
+    network.joinGame(code);
+  } else {
+    reset();
+  }
+
   // guess submission
   $('#guess-form').bind('submit', function(e) {
     e.preventDefault();
@@ -50,11 +76,23 @@ $(document).ready(function() {
   });
 
   $('#link-da-peeps').bind('click', function() {
-    UI.showPlayWithFriendModal();
+    game.setMode(GameMode.MULTI_PLAYER, function() {
+      network.createNewGame({
+        data: {
+          code: sessionCode,
+          turns: game.turnQueue.map(function(t) { return t.asJSON(); })
+        }
+      });
+    });
+
+    UI.showPlayWithFriendModal(function() {
+      console.log('closed');
+    });
   });
 
   // connect spotify
   $('#connect-spotify').bind('click', function() {
     Spotify.connect();
   });
+
 });

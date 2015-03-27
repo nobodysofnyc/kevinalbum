@@ -33,17 +33,46 @@ Game.prototype = {
     }
   },
 
+  setMode: function(mode, completion) {
+    switch (mode) {
+      case GameMode.SINGLE_PLAYER:
+        break;
+      case GameMode.MULTI_PLAYER:
+        this._maintainTurnQueue(this.maxTurns, function() {
+          if (completion) {
+            completion();
+          }
+        });
+        break;
+      default:
+        break;
+    }
+  },
+
   turnsLeft: function() {
     return this.maxTurns - this.turnCount;
   },
 
-  _maintainTurnQueue: function() {
-    for (var i = 0; i < this.QUEUE_MAX_CAPACITY - this.turnQueue.length; i++) {
+  _maintainTurnQueue: function(count, completion) {
+    var done = 0;
+    var max = count || this.QUEUE_MAX_CAPACITY;
+    max = max - this.turnQueue.length;
+    for (var i = 0; i < max; i++) {
       var turn = new Turn(function(art) {
         UI.preloadImage(art);
+      }, function() {
+        done++;
+        if (done === max) {
+          if (completion) {
+            completion();
+          }
+        }
       });
       this.turnQueue.push(turn);
     }
+    // for (var i = 0; i < max - this.turnQueue.length; i++) {
+    //   console.log(i);
+    // }
   },
 
   addPoints: function(points) {

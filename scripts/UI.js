@@ -1,11 +1,11 @@
 var perc = 0.6;
 var sleeveLoaded = false;
 var UI = {
-  showPlayWithFriendModal: function() {
+  showPlayWithFriendModal: function(onClose) {
     var $overlay = $('<div id="overlay"></div>');
     $('.in-da-fg').addClass('blur-dat');
     $('.in-da-bg').addClass('blur-dat');
-    var $sheet = UI._buildShareSheet();
+    var $sheet = UI._buildShareSheet(onClose);
     $sheet.css({
       'margin-left' : -($sheet.width() / 2),
       'margin-top' : -($sheet.height() / 2)
@@ -141,14 +141,17 @@ var UI = {
     i.src = image
   },
 
-  _buildShareSheet: function() {
+  // FRIEND STUFF
+  //
+  _buildShareSheet: function(onClose) {
      var $container = $('<div id="modal-bg"></div>');
      var $div = $('<div id="modal"></div>');
-     var $header = $('<h4>Share this with a friend</h4>');
-     var $code = $('<p>' + Code.random(4) + '</p>');
+     var $header = $('<h4>Play together, not the same.</h4>');
+     var $code = $('<p>'+ document.location.origin +'?code='+ sessionCode +'</p>');
      $('body').append($container).append($div.append($header).append($code));
      $container.bind('click', function() {
        UI.hidePlayWithFriendModal();
+       if (onClose) { onClose(); }
      });
      return $div;
   }
