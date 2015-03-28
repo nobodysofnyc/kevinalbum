@@ -60,14 +60,16 @@ var Request = {
 function handleSocketEvent(data, ws) {
   switch (data.type) {
     case Request.NEW_MULTIPLAYER_GAME:
-      var game = GameCoordinator.newGame(data, ws);
-      game.uuid = guid();
-      ws.send(JSON.stringify({
-        type: Request.NEW_MULTIPLAYER_GAME_SETUP,
-        game: {
-          uuid: game.uuid
-        }
-      }));
+      if (!GameCoordinator.findByCode(data.code)) {
+        var game = GameCoordinator.newGame(data, ws);
+        game.uuid = guid();
+        ws.send(JSON.stringify({
+          type: Request.NEW_MULTIPLAYER_GAME_SETUP,
+          game: {
+            uuid: game.uuid
+          }
+        }));
+      }
       break;
     case Request.JOIN_MULTIPLAYER_GAME:
       var game = GameCoordinator.joinGame(data, ws);
